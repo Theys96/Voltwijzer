@@ -8,15 +8,6 @@
           {{ questions[idx - 1].title }}
         </h1>
       </v-col>
-      <v-col 
-        cols="auto" 
-        class="shrink text-center"
-        v-show="idx == questions.length"
-      >
-        <v-btn @click="showResult()" class="mb-3">
-          Naar je uitslag
-        </v-btn>
-      </v-col>
       <v-col cols="auto" class="grow" >
         <div
           class="fill-height mx-auto"
@@ -29,6 +20,15 @@
             @hook:mounted="setVideoHeight"
           />
         </div>
+      </v-col>
+      <v-col 
+        cols="auto" 
+        class="shrink text-center"
+        v-show="idx == questions.length"
+      >
+        <v-btn @click="showResult()" class="mt-3">
+          Naar je uitslag
+        </v-btn>
       </v-col>
       <v-col 
         cols="auto" 
