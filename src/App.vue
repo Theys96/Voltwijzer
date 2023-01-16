@@ -1,10 +1,13 @@
 <template>
   <v-app :style="{background: '#502379'}">
     <v-main>
-      <MainVoltwijzer v-if="!result"
+      <VoltwijzerIntro v-if="!started"
+        @start="() => restart()"
+      />
+      <MainVoltwijzer v-if="started && !result"
         @result="(res) => showResult(res)"
       />
-      <VoltwijzerResult v-if="result"
+      <VoltwijzerResult v-if="started && result"
         @restart="restart()"
         :result="res"
       />
@@ -28,6 +31,7 @@ import image from "./assets/logo.png"
 import VoltwijzerFooter from './components/VoltwijzerFooter';
 import MainVoltwijzer from './components/MainVoltwijzer';
 import VoltwijzerResult from './components/VoltwijzerResult';
+import VoltwijzerIntro from './components/VoltwijzerIntro';
 
 export default {
   name: 'App',
@@ -35,19 +39,22 @@ export default {
   components: {
     MainVoltwijzer,
     VoltwijzerFooter,
-    VoltwijzerResult
+    VoltwijzerResult,
+    VoltwijzerIntro
   },
 
   data: function () {
     return {
       image: image,
       result: false,
+      started: false,
       res: 0.0
     }
   },
 
   methods: {
     restart() {
+      this.started = true
       this.result = false
     },
     showResult(res) {

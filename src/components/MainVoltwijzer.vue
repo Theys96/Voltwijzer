@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height py-0 justify-center" fluid>
     <v-row class="no-gutters flex-wrap flex-column fill-height px-1">
-      <v-col cols="auto" class="shrink text-center pb-3">
+      <v-col cols="auto" class="shrink text-center py-3">
         <h1
           style="color: white;"
         >
@@ -18,15 +18,17 @@
         </v-btn>
       </v-col>
       <v-col cols="auto" class="grow" >
-        <v-card
-          elevation="2"
+        <div
           class="fill-height mx-auto"
-          width="500px"
+          :style="videoBoxStyle"
+          ref="videoBox"
         >
-          <v-card-text class="text-center">
-            Video goes here
-          </v-card-text>
-        </v-card>
+          <video-player 
+            v-if="renderVideo"
+            :video="videos[this.idx - 1]"
+            @hook:mounted="setVideoHeight"
+          />
+        </div>
       </v-col>
       <v-col 
         cols="auto" 
@@ -64,6 +66,8 @@
 </template>
   
 <script>
+import VideoPlayer from './VideoPlayer.vue';
+
 const QUESTIONS = [
   'Europees denken, lokaal doen',
   'Generatie Volt',
@@ -82,6 +86,24 @@ const QUESTIONS = [
   'Zorg voor iedereen',
 ];
 
+const VIDEOS = [
+  '/video/Stefan.mp4',
+  '/video/Stefan2.mp4',
+  '/video/Stefan.mp4',
+  '/video/Stefan2.mp4',
+  '/video/Stefan.mp4',
+  '/video/Stefan2.mp4',
+  '/video/Stefan.mp4',
+  '/video/Stefan2.mp4',
+  '/video/Stefan.mp4',
+  '/video/Stefan2.mp4',
+  '/video/Stefan.mp4',
+  '/video/Stefan2.mp4',
+  '/video/Stefan.mp4',
+  '/video/Stefan2.mp4',
+  '/video/Stefan.mp4',
+];
+
 function arrayMean(arr) {
   return arr.reduce((a, b) => a + b, 0) / arr.length;
 }
@@ -89,10 +111,17 @@ function arrayMean(arr) {
 export default {
   name: 'HelloWorld',
 
+  components: {
+    VideoPlayer
+  },
+
   data() {
     let data = {
       idx: 1,
-      questions: []
+      questions: [],
+      videos: VIDEOS,
+      videoBoxHeight: 300,
+      renderVideo: true,
     }
     for (let i = 0; i < QUESTIONS.length; i++) {
       data.questions.push({
@@ -103,15 +132,43 @@ export default {
     return data
   },
 
+  mounted () {
+    this.setVideoHeight();
+  },
+
   methods: {
     showResult() {
       let score = arrayMean(this.questions.map(
         (q) => q.vote
       ))
       this.$emit('result', score)
+    },
+    rerenderVideo() {
+      this.renderVideo = false;
+      this.$nextTick(() => {
+        this.videoBoxHeight = 300
+        this.renderVideo = true;
+      });
+    },
+    setVideoHeight() {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }
+  },
+
+  computed: {
+    videoBoxStyle () {
+      let width = this.videoBoxHeight * (9 / 16);
+      return {
+        width: `${width}px`
+      }
+    }
+  },
+
+  watch: {
+    idx () {
+      this.rerenderVideo();
     }
   }
-
 }
 </script>
   
