@@ -1,15 +1,7 @@
 <template>
-  <v-container class="fill-height pb-0 justify-center" fluid>
+  <v-container class="fill-height py-0 justify-center" fluid>
     <v-row class="no-gutters flex-wrap flex-column fill-height px-1">
-      <v-col cols="auto" class="shrink white--text">
-        <v-pagination
-          v-model="idx"
-          :length="questions.length"
-          color="#82D0F4"
-          :total-visible="7"
-        />
-      </v-col>
-      <v-col cols="auto" class="shrink text-center">
+      <v-col cols="auto" class="shrink text-center pb-3">
         <h1
           style="color: white;"
         >
@@ -18,7 +10,27 @@
       </v-col>
       <v-col 
         cols="auto" 
-        class="no-gutters flex-wrap flex-column shrink pt-4 white--text"
+        class="shrink text-center"
+        v-show="idx == questions.length"
+      >
+        <v-btn @click="showResult()" class="mb-3">
+          Naar je uitslag
+        </v-btn>
+      </v-col>
+      <v-col cols="auto" class="grow" >
+        <v-card
+          elevation="2"
+          class="fill-height mx-auto"
+          width="500px"
+        >
+          <v-card-text class="text-center">
+            Video goes here
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col 
+        cols="auto" 
+        class="no-gutters flex-wrap flex-column shrink white--text py-3"
       >
         <v-row style="max-width: 600px" class="mx-auto">
           <v-col class="col-2 px-0 pt-4 text-right">
@@ -31,6 +43,7 @@
               max="100"
               color="white"
               track-color="white"
+              hide-details
             />
           </v-col>
           <v-col class="col-2 px-0 pt-4 text-left">
@@ -38,28 +51,16 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col 
-        cols="auto" 
-        class="shrink text-center mb-2"
-        v-show="idx == questions.length"
-      >
-        <v-btn @click="showResult()">
-          Naar je uitslag
-        </v-btn>
+      <v-col cols="auto" class="shrink white--text">
+        <v-pagination
+          v-model="idx"
+          :length="questions.length"
+          color="#82D0F4"
+          :total-visible="7"
+        />
       </v-col>
-      <v-col cols="auto" class="grow" >
-        <v-card
-          elevation="2"
-          class="fill-height mx-auto"
-          width="500px"
-        >
-        <v-card-text class="text-center">
-          Video goes here
-        </v-card-text>
-        </v-card>
-      </v-col>
-      </v-row>
-    </v-container>
+    </v-row>
+  </v-container>
 </template>
   
 <script>
