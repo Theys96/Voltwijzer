@@ -16,7 +16,7 @@
 import image from "../assets/logo.png"
 
 export default {
-  name: 'HelloWorld',
+  name: 'VoltwijzerFooter',
   data() {
     return {
       image: image

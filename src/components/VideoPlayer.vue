@@ -35,7 +35,7 @@ export default {
   },
   mounted() {
     this.player = videojs(this.$refs.videoPlayer, this.options, () => {
-      this.player.log('onPlayerReady', this);
+      // this.player.log('onPlayerReady', this);
     });
   },
   beforeDestroy() {

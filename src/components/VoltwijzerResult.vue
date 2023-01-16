@@ -11,7 +11,7 @@
   
 <script>
   export default {
-    name: 'HelloWorld',
+    name: 'VoltwijzerResult',
     props: {
       result: Number
     },
