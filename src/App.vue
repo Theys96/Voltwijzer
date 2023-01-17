@@ -1,18 +1,19 @@
 <template>
   <v-app :style="{background: '#502379'}">
-    <v-main>
+    <v-main :style="{maxHeight: (windowHeight - 40) + 'px'}">
       <VoltwijzerIntro v-if="!started"
         @start="() => restart()"
       />
       <MainVoltwijzer v-if="started && !result"
         @result="(res) => showResult(res)"
+        :height="windowHeight - 40"
       />
       <VoltwijzerResult v-if="started && result"
         @restart="restart()"
         :result="res"
       />
     </v-main>
-    <v-footer :style="{background: '#502379'}">
+    <v-footer :style="{background: '#502379', height: '40px'}">
       <VoltwijzerFooter />
     </v-footer>
   </v-app>
@@ -23,6 +24,10 @@
 
 body * {
   font-family: 'Ubuntu';
+}
+
+body {
+  height: 300px;
 }
 </style>
 
@@ -45,6 +50,7 @@ export default {
 
   data: function () {
     return {
+      windowHeight: window.innerHeight,
       image: image,
       result: false,
       started: false,

@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height py-0 justify-center" fluid>
     <v-row class="no-gutters flex-wrap flex-column fill-height px-1">
-      <v-col cols="auto" class="shrink text-center py-3">
+      <v-col cols="auto" class="shrink text-center py-3" style="height: 100px;">
         <h1
           style="color: white;"
         >
@@ -33,6 +33,7 @@
       <v-col 
         cols="auto" 
         class="no-gutters flex-wrap flex-column shrink white--text py-3"
+        style="height: 50px;"
       >
         <v-row style="max-width: 600px" class="mx-auto">
           <v-col class="col-2 px-0 pt-4 text-right">
@@ -53,12 +54,15 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col cols="auto" class="shrink white--text">
-        <v-pagination
-          v-model="idx"
+      <v-col cols="auto" class="shrink white--text"
+        style="height: 60px;">
+        <VoltwijzerNavigation
+          :modelValue="idx"
+          @navigate="idx = $event"
           :length="questions.length"
           color="#82D0F4"
-          :total-visible="7"
+          :total-visible="1"
+          text-color="#502379"
         />
       </v-col>
     </v-row>
@@ -67,6 +71,7 @@
   
 <script>
 import VideoPlayer from './VideoPlayer.vue';
+import VoltwijzerNavigation from './VoltwijzerNavigation.vue';
 
 const QUESTIONS = [
   'Europees denken, lokaal doen',
@@ -109,10 +114,15 @@ function arrayMean(arr) {
 }
 
 export default {
-  name: 'HelloWorld',
+  name: 'MainVoltwijzer',
 
   components: {
-    VideoPlayer
+    VideoPlayer,
+    VoltwijzerNavigation
+  },
+
+  props: {
+    height: Number,
   },
 
   data() {
@@ -152,7 +162,7 @@ export default {
     },
     setVideoHeight() {
       this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }
+    },
   },
 
   computed: {
