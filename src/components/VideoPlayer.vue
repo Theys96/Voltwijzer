@@ -22,7 +22,7 @@ export default {
         autoplay: true,
         controls: true,
         fluid: true,
-        aspectRatio: "9:16",
+        aspectRatio: "1:1",//"9:16",
         sources: [
           {
             src:

@@ -84,29 +84,19 @@ const QUESTIONS = [
   'Moderne overheid',
   'Vertrouwen in de politiek',
   'Bereikbaarheid over grenzen',
-  'Bereikbaarheid in de provincie',
-  'Gronings gas',
-  'Ter Apel',
-  'Cultuur',
-  'Zorg voor iedereen',
 ];
 
 const VIDEOS = [
-  '/video/Stefan.mp4',
-  '/video/Stefan2.mp4',
-  '/video/Stefan.mp4',
-  '/video/Stefan2.mp4',
-  '/video/Stefan.mp4',
-  '/video/Stefan2.mp4',
-  '/video/Stefan.mp4',
-  '/video/Stefan2.mp4',
-  '/video/Stefan.mp4',
-  '/video/Stefan2.mp4',
-  '/video/Stefan.mp4',
-  '/video/Stefan2.mp4',
-  '/video/Stefan.mp4',
-  '/video/Stefan2.mp4',
-  '/video/Stefan.mp4',
+  '/video/01.mp4',
+  '/video/02.mp4',
+  '/video/03.mp4',
+  '/video/04.mp4',
+  '/video/05.mp4',
+  '/video/06.mp4',
+  '/video/07.mp4',
+  '/video/08.mp4',
+  '/video/09.mp4',
+  '/video/10.mp4',
 ];
 
 function arrayMean(arr) {
@@ -167,9 +157,9 @@ export default {
 
   computed: {
     videoBoxStyle () {
-      let width = this.videoBoxHeight * (9 / 16);
+      let width = this.videoBoxHeight;// * (9 / 16);
       return {
-        width: `${width}px`
+        maxWidth: `${width}px`
       }
     }
   },
