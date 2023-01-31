@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height py-0 justify-center" fluid>
     <v-row class="no-gutters flex-wrap flex-column fill-height px-1">
-      <v-col cols="auto" class="shrink text-center py-3" style="height: 100px;">
+      <v-col cols="auto" class="shrink text-center py-3" style="height: 140px;">
         <h1
           style="color: white;"
         >
@@ -26,33 +26,39 @@
         class="shrink text-center"
         v-show="idx == questions.length"
       >
-        <v-btn @click="showResult()" class="mt-3">
+        <v-btn 
+          @click="showResult()" 
+          class="mt-7 mb-2" 
+          color="#FDC220"
+          :disabled="!touched"
+        >
           Naar je uitslag
         </v-btn>
       </v-col>
       <v-col 
         cols="auto" 
-        class="no-gutters flex-wrap flex-column shrink white--text py-3"
-        style="height: 50px;"
+        class="no-gutters flex-wrap flex-column shrink white--text pt-6"
+        style="height: 90px;"
       >
-        <v-row style="max-width: 600px" class="mx-auto">
-          <v-col class="col-2 px-0 pt-4 text-right">
-            Oneens
-          </v-col>
-          <v-col class="col-8 px-2">
-            <v-slider
-              v-model="questions[idx - 1].vote"
-              min="0"
-              max="100"
-              color="white"
-              track-color="white"
-              hide-details
-            />
-          </v-col>
-          <v-col class="col-2 px-0 pt-4 text-left">
-            Eens
-          </v-col>
-        </v-row>
+        <div
+          style="max-width: 600px"
+          class="mx-auto"
+        >
+          <v-slider
+            v-model="questions[idx - 1].vote"
+            min="0"
+            max="4"
+            step="1"
+            hide-details
+            ticks="always"
+            tick-size="4"
+            :tick-labels="tickLabels"
+            :color="color"
+            track-color="white"
+            track-fill-color="white"
+            @start="touch"
+          />
+        </div>
       </v-col>
       <v-col cols="auto" class="shrink white--text"
         style="height: 60px;">
@@ -63,6 +69,7 @@
           color="#82D0F4"
           :total-visible="1"
           text-color="#502379"
+          :disabled="!touched"
         />
       </v-col>
     </v-row>
@@ -72,6 +79,14 @@
 <script>
 import VideoPlayer from './VideoPlayer.vue';
 import VoltwijzerNavigation from './VoltwijzerNavigation.vue';
+
+const TICK_LABELS = [
+  'Oneens',
+  '',
+  'Neutraal',
+  '',
+  'Eens',
+]
 
 const QUESTIONS = [
   'Europees denken, lokaal doen',
@@ -99,6 +114,14 @@ const VIDEOS = [
   '/video/10.mp4',
 ];
 
+const COLORS = [
+  '#E63E12',
+  '#E63E12',
+  'white',
+  '#1BBE6F',
+  '#1BBE6F'
+]
+
 function arrayMean(arr) {
   return arr.reduce((a, b) => a + b, 0) / arr.length;
 }
@@ -122,11 +145,13 @@ export default {
       videos: VIDEOS,
       videoBoxHeight: 300,
       renderVideo: true,
+      tickLabels: TICK_LABELS,
+      touched: false,
     }
     for (let i = 0; i < QUESTIONS.length; i++) {
       data.questions.push({
         'title': QUESTIONS[i],
-        'vote': 50
+        'vote': 2
       })
     }
     return data
@@ -153,6 +178,9 @@ export default {
     setVideoHeight() {
       this.videoBoxHeight = this.$refs.videoBox.clientHeight;
     },
+    touch() {
+      this.touched = true;
+    }
   },
 
   computed: {
@@ -161,12 +189,17 @@ export default {
       return {
         maxWidth: `${width}px`
       }
+    },
+
+    color () {
+      return COLORS[this.questions[this.idx - 1].vote]
     }
   },
 
   watch: {
     idx () {
       this.rerenderVideo();
+      this.touched = false;
     }
   }
 }

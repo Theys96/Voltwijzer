@@ -1,7 +1,7 @@
 <template>
 
 <div class="text-center ma-2">
-    <v-btn class="mx-1" @click="navigateTo(modelValue - 1)" :disabled="!(modelValue > 1)">
+    <v-btn class="mx-1" @click="navigateTo(modelValue - 1)" :disabled="disabled || !(modelValue > 1)">
         <v-icon :color="textColor">mdi-chevron-left</v-icon>
     </v-btn>
     <div
@@ -10,7 +10,7 @@
         <span style="font-size: 1.4em; ">{{ modelValue }} / {{ length }}</span>
         <span></span>
     </div>
-    <v-btn class="mx-1" @click="navigateTo(modelValue + 1)" :disabled="!(modelValue < length)">
+    <v-btn class="mx-1" @click="navigateTo(modelValue + 1)" :disabled="disabled || !(modelValue < length)">
         <v-icon :color="textColor">mdi-chevron-right</v-icon>
     </v-btn>
 </div>
@@ -26,6 +26,7 @@ export default {
         length: Number,
         color: String,
         textColor: String,
+        disabled: Boolean,
     },
     
     emits: ['navigate'],
