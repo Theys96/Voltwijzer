@@ -10,7 +10,7 @@
         <span style="font-size: 1.4em; ">{{ modelValue }} / {{ length }}</span>
         <span></span>
     </div>
-    <v-btn class="mx-1" @click="navigateTo(modelValue + 1)" :disabled="disabled || !(modelValue < length)">
+    <v-btn class="mx-1" :color="buttonColor" @click="navigateTo(modelValue + 1)" :disabled="disabled || !(modelValue < length + 1)">
         <v-icon :color="textColor">mdi-chevron-right</v-icon>
     </v-btn>
 </div>
@@ -29,11 +29,21 @@ export default {
         disabled: Boolean,
     },
     
-    emits: ['navigate'],
+    emits: ['navigate', 'finish'],
     
     methods: {
         navigateTo (val) {
-            this.$emit('navigate', Math.max(0, Math.min(val, this.length)))
+            if (val == this.length + 1) {
+                this.$emit('finish');
+            } else {
+                this.$emit('navigate', Math.max(0, Math.min(val, this.length)))
+            }
+        }
+    },
+
+    computed: {
+        buttonColor() {
+            return this.modelValue == this.length ? '#FDC220' : null;
         }
     }
 }

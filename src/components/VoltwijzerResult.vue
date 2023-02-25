@@ -1,6 +1,6 @@
 <template>
   <v-container style="max-width: 500px" text-center mt-5 class="white--text">
-    <h2>
+    <h2 style="position: relative;">
         <img 
           :src="logo" 
           height="22s"
@@ -38,15 +38,15 @@
 const negative_result = 
   "Het lijkt er op dat je nog niet helemaal overtuigd bent van de standpunten van Volt. " + 
   "Misschien vind je het toch interessant om meer over ons te weten te komen. " + 
-  "Neem dan eens een kijkje in ons verkiezings-programma.";
+  "Neem dan eens een kijkje in ons verkiezingsprogramma.";
 const neutral_result = 
   "Je lijkt open te staan voor de boodschap van Volt, al ben je het nog niet altijd met ons eens. " + 
   "Misschien vind je het interessant om meer over ons te weten te komen. " + 
-  "Neem dan eens een kijkje in ons verkiezings--programma. ";
+  "Neem dan eens een kijkje in ons verkiezingsprogramma. ";
 const positive_result = 
   "Jij bent klaar voor Volt! Je bent het grotendeels met ons eens. " + 
   "Wil je meer over Volt te weten komen? " + 
-  "Neem dan eens een kijkje in ons verkiezings-programma. ";
+  "Neem dan eens een kijkje in ons verkiezingsprogramma. ";
 const optimal_result =
   "Jij bent klaar voor Volt! Je bent het helemaal met ons eens. " +
   "Wil je toch nog meer weten over Volt? " + 
@@ -68,13 +68,13 @@ export default {
   },
   computed: {
     result_text() {
-      if (this.result <= 1) {
+      if (this.result <= .25 * 4) {
         return negative_result;
       }
-      if (this.result > 3) {
+      if (this.result > .85 * 4) {
         return optimal_result;
       }
-      if (this.result > 2) {
+      if (this.result > .50 * 4) {
         return positive_result;
       }
       return neutral_result;

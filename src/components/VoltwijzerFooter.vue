@@ -1,16 +1,14 @@
 <template>
     <v-container fluid pa-0>
-      <a href="https://provincie-groningen.voltnederland.org/" target="_blank" style="text-decoration: none;">
-        <h3 
-          style="color: white; text-align: center;"
-        >
-          <img 
-            :src="image" 
-            height="16s"
-          />
-          Groningen
-        </h3>
-      </a>
+      <h3 
+        style="color: white; text-align: center;"
+      >
+        <img 
+          :src="image" 
+          height="16s"
+        />
+        Groningen
+      </h3>
     </v-container>
 </template>
   

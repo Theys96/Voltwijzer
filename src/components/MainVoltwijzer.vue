@@ -23,20 +23,6 @@
       </v-col>
       <v-col 
         cols="auto" 
-        class="shrink text-center"
-        v-show="idx == questions.length"
-      >
-        <v-btn 
-          @click="showResult()" 
-          class="mt-7 mb-2" 
-          color="#FDC220"
-          :disabled="!touched"
-        >
-          Naar je uitslag
-        </v-btn>
-      </v-col>
-      <v-col 
-        cols="auto" 
         class="no-gutters flex-wrap flex-column shrink white--text pt-6"
         style="height: 90px;"
       >
@@ -65,6 +51,7 @@
         <VoltwijzerNavigation
           :modelValue="idx"
           @navigate="idx = $event"
+          @finish="showResult()"
           :length="questions.length"
           color="#82D0F4"
           :total-visible="1"
@@ -91,13 +78,17 @@ const TICK_LABELS = [
 const QUESTIONS = [
   'Europees denken, lokaal doen',
   'Generatie Volt',
-  'Onze kandidaten',
-  'Teelt volgt peil',
   'Duurzaam wonen',
   'Energieprovincie',
+  'Ter Apel',
+  'Teelt volgt peil',
+  'Bereikbaarheid in de provincie',
   'Stikstof',
   'Moderne overheid',
+  'Cultuur',
   'Vertrouwen in de politiek',
+  'Zorg voor iedereen',
+  'Gronings gas',
   'Bereikbaarheid over grenzen',
 ];
 
@@ -112,6 +103,10 @@ const VIDEOS = [
   '/video/08.mp4',
   '/video/09.mp4',
   '/video/10.mp4',
+  '/video/11.mp4',
+  '/video/12.mp4',
+  '/video/13.mp4',
+  '/video/14.mp4',
 ];
 
 const COLORS = [
@@ -164,7 +159,7 @@ export default {
   methods: {
     showResult() {
       let score = arrayMean(this.questions.map(
-        (q) => q.vote
+        (q) => q.vote == 3 ? (.85 * 4) : q.vote
       ))
       this.$emit('result', score)
     },
