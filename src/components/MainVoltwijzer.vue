@@ -14,8 +14,27 @@
           :style="videoBoxStyle"
           ref="videoBox"
         >
+          <v-container style="max-width: 500px" text-center class="white--text" v-if="!started">
+            <v-card>
+              <v-card-text class="pb-1 intro" :style="{'background-image': 'url(' + jj + ')'}">
+                <p style="color: #502379; text-align: justify;">
+                  Zometeen vertellen onze kandidaten in <b>14 korte video's</b> over de standpunten van Volt Groningen. <br />
+                  Geef je <b>mening</b> over ieder standpunt met de <b>schuif</b> aan de onderkant.<br />
+                  Zodra je de schuif hebt <b>aangeraakt</b>, kun je verder naar de volgende video met de navigatie-knoppen.<br />
+                  Aan het einde geven we jou een <b>passend stemadvies</b>!
+                </p>
+                <v-btn class="py-3 my-4" style="color: white;" color="#502379" @click="started = true">
+                  Ik begrijp het
+                </v-btn>
+                <!--<p style="color: #502379;" class="my-0">#GeneratieVolt #ProvincialeStaten2023</p>-->
+              </v-card-text>
+              <v-img
+                :src="grunn"
+              ></v-img>
+            </v-card>
+          </v-container>
           <video-player 
-            v-if="renderVideo"
+            v-if="started && renderVideo"
             :video="videos[this.idx - 1]"
             @hook:mounted="setVideoHeight"
           />
@@ -50,13 +69,13 @@
         style="height: 60px;">
         <VoltwijzerNavigation
           :modelValue="idx"
-          @navigate="idx = $event"
+          @navigate="navigateTo($event)"
           @finish="showResult()"
           :length="questions.length"
           color="#82D0F4"
           :total-visible="1"
           text-color="#502379"
-          :disabled="!touched"
+          :disabled="!started || !questions[idx - 1].touched"
         />
       </v-col>
     </v-row>
@@ -64,6 +83,7 @@
 </template>
   
 <script>
+import axios from 'axios';
 import VideoPlayer from './VideoPlayer.vue';
 import VoltwijzerNavigation from './VoltwijzerNavigation.vue';
 
@@ -141,12 +161,13 @@ export default {
       videoBoxHeight: 300,
       renderVideo: true,
       tickLabels: TICK_LABELS,
-      touched: false,
+      started: false,
     }
     for (let i = 0; i < QUESTIONS.length; i++) {
       data.questions.push({
         'title': QUESTIONS[i],
-        'vote': 2
+        'vote': 2,
+        'touched': false,
       })
     }
     return data
@@ -154,6 +175,7 @@ export default {
 
   mounted () {
     this.setVideoHeight();
+    axios.get('/action/?x=start');
   },
 
   methods: {
@@ -162,6 +184,8 @@ export default {
         (q) => q.vote == 3 ? (.85 * 4) : q.vote
       ))
       this.$emit('result', score)
+      axios.get('/action/?x=vote-' + this.idx + '-' + this.questions[this.idx - 1].vote);
+      axios.get('/action/?x=score-' + ((score/4*100).toFixed(0)));
     },
     rerenderVideo() {
       this.renderVideo = false;
@@ -174,7 +198,13 @@ export default {
       this.videoBoxHeight = this.$refs.videoBox.clientHeight;
     },
     touch() {
-      this.touched = true;
+      this.questions[this.idx - 1].touched = true;
+    },
+    navigateTo(newIdx) {
+      let oldIdx = this.idx;
+      this.idx = newIdx;
+      axios.get('/action/?x=navigate-' + oldIdx + '-' + newIdx);
+      axios.get('/action/?x=vote-' + oldIdx + '-' + this.questions[oldIdx - 1].vote);
     }
   },
 
@@ -194,7 +224,6 @@ export default {
   watch: {
     idx () {
       this.rerenderVideo();
-      this.touched = false;
     }
   }
 }

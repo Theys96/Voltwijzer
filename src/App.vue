@@ -13,6 +13,7 @@
       <VoltwijzerResult v-if="started && result"
         @restart="restart()"
         :result="res"
+        :result-texts="resultTexts"
       />
     </v-main>
     <v-footer class="footer">
@@ -68,6 +69,7 @@ import VoltwijzerFooter from './components/VoltwijzerFooter';
 import MainVoltwijzer from './components/MainVoltwijzer';
 import VoltwijzerResult from './components/VoltwijzerResult';
 import VoltwijzerIntro from './components/VoltwijzerIntro';
+import axios from 'axios';
 
 export default {
   name: 'App',
@@ -85,8 +87,20 @@ export default {
       image: image,
       result: false,
       started: false,
-      res: 0.0
+      res: 0.0,
+      resultTexts: {},
     }
+  },
+
+  created: function () {
+    let app = this
+
+    axios.get('/texts.json')
+      .then(
+        function (response) {
+          app.resultTexts = response.data;
+        }
+      );
   },
 
   methods: {

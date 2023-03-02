@@ -4,7 +4,7 @@
         <img 
           :src="logo" 
           height="22s"
-        />wijzer
+        />wijzer.nl
     </h2>
     <v-card class="mt-4">
       <v-card-text class="pb-1 intro" :style="{'background-image': 'url(' + jj + ')'}">
