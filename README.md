@@ -1,4 +1,4 @@
-# voltwijzer
+# Voltwijzer
 
 ## Project setup
 ```

@@ -1,0 +1,52 @@
+{
+    "optimal_result": "Jij bent klaar voor Volt! Je bent het helemaal met ons eens. Benieuwd naar meer informatie over specifieke punten? Lees dan ons verkiezingsprogramma en overweeg eens lid te worden.",
+    "positive_result": "Jij bent klaar voor Volt! Je bent het grotendeels met ons eens. Wil je meer over Volt en onze standpunten lezen? Neem dan eens een kijkje in ons verkiezingsprogramma.",
+    "neutral_result": "Leuk om te zien dat je open staat voor onze boodschap, al ben je het nog niet altijd met ons eens. Misschien vind je het interessant om meer over ons te weten te komen? Neem dan eens een kijkje in ons verkiezingsprogramma!",
+    "negative_result": "Het lijkt er op dat je nog niet helemaal overtuigd bent van de standpunten van Volt. Misschien vind je het interessant om meer over ons te weten te komen. Neem dan eens een kijkje in ons verkiezingsprogramma.",
+    "welcome": "<b>Op 15 maart 2023 waren de Provinciale Statenverkiezingen.</b><br /><br />\nWelkom bij de Voltwijzer, het hulpmiddel waarmee je er achter kunt komen of de partij Volt iets voor jou is.",
+    "instructions": "Zometeen vertellen onze kandidaten in <b>14 korte video's</b> over de standpunten van Volt Groningen. <br />\nGeef je <b>mening</b> over ieder standpunt met de <b>schuif</b> aan de onderkant.<br />\nZodra je de schuif hebt <b>aangeraakt</b>, kun je verder naar de volgende video met de navigatie-knoppen.<br />\nAan het einde geven we jou een <b>passend stemadvies</b>!",
+    "link": "https://provincie-groningen.voltnederland.org/programma/",
+    "tag_line": "#GeneratieVolt #ProvincialeStaten2023",
+    "labels": [
+        "Oneens",
+        "Neutraal",
+        "Eens"
+    ],
+    "colors": [
+        "#E63E12",
+        "white",
+        "#1BBE6F"
+    ],
+    "titles": [
+        "Europees denken, lokaal doen",
+        "Generatie Volt",
+        "Duurzaam wonen",
+        "Energieprovincie",
+        "Ter Apel",
+        "Teelt volgt peil",
+        "Bereikbaarheid in de provincie",
+        "Stikstof",
+        "Moderne overheid",
+        "Cultuur",
+        "Vertrouwen in de politiek",
+        "Zorg voor iedereen",
+        "Gronings gas",
+        "Bereikbaarheid over grenzen"
+    ],
+    "videos": [
+        "/video/01.mp4",
+        "/video/02.mp4",
+        "/video/03.mp4",
+        "/video/04.mp4",
+        "/video/05.mp4",
+        "/video/06.mp4",
+        "/video/07.mp4",
+        "/video/08.mp4",
+        "/video/09.mp4",
+        "/video/10.mp4",
+        "/video/11.mp4",
+        "/video/12.mp4",
+        "/video/13.mp4",
+        "/video/14.mp4"
+    ]
+}
